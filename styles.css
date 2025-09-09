@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pavlo Krykavskyi Storefront</title>
+
+  <!-- EXTERNAL CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- INTERNAL CSS (small overrides just to demonstrate) -->
+  <style>
+    /* slightly different color for the company name than the external css */
+    header h1 { color: #0b3d91; }      /* Penn State-ish blue */
+    /* Make the footer text a bit smaller than the external default */
+    footer { font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (logo left, name right) -->
+  <header class="banner">
+    <div class="logo" aria-label="Company badge logo">*SVG*</div>
+    <h1>Pavlo Krykavskyi Storefront</h1>
+  </header>
+
+  <!-- MAIN 3-COLUMN LAYOUT: nav | section | aside -->
+  <main class="layout">
+    <!-- NAVIGATION -->
+    <nav class="sidenav">
+      <h2 class="visually-hidden">Navigation</h2>
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="cart.html">Shopping Cart</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <!-- SECTION WITH ARTICLES -->
+    <section class="content">
+      <h2>Current Sales</h2>
+
+      <!-- INLINE CSS DEMO: just this one article has a pale background -->
+      <article style="background:#fffbe6;">
+        <h3>Product 1</h3>
+        <p>Discounted price for Product 1. <strong>$9.99</strong> (was $14.99)</p>
+      </article>
+
+      <article>
+        <h3>Product 2</h3>
+        <p>Special offer for Product 2. Save 25% this week.</p>
+      </article>
+
+      <article>
+        <h3>Product 3</h3>
+        <p>Bundle deal for Product 3. Three for one low price.</p>
+      </article>
+    </section>
+
+    <!-- ASIDE -->
+    <aside class="ads">
+      <h2>Ads & Marketing</h2>
+      <p><strong>Newsletter:</strong> Join for weekend deals.</p>
+      <p><strong>Student Discount:</strong> 10% off with .edu email.</p>
+      <p><strong>Refer a Friend:</strong> Give 10%, get 10%.</p>
+    </aside>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      <a href="terms.html">Terms of Use</a> |
+      <a href="cookies.html">Cookie and Privacy Policy</a> |
+      <a href="copyright.html">Copyright</a>
+    </p>
+    <p>&copy; 2025 Pavlo Krykavskyi Storefront</p>
+  </footer>
+
+</body>
+</html>
