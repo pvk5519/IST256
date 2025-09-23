@@ -1,65 +1,16 @@
-/* Reset-ish basics */
-* { box-sizing: border-box; }
-html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #222; }
-a { color: #0b3d91; text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-/* Header (keeps your table; we just add a soft background) */
-header {
-  background: #e9eef7;
-  border-bottom: 1px solid #c9d6f0;
-  padding: 8px 12px;
+:root {
+  --brand: #0b3d91; /* your blue */
 }
 
-/* 3-column layout (your existing <div class="layout"> with nav | section | aside) */
-.layout {
-  display: grid;
-  grid-template-columns: 220px 1fr 260px; /* nav | main | aside */
-  gap: 16px;
-  padding: 16px;
-}
+/* make the site title blue, and links use your brand color */
+header h1 { color: var(--brand); }
+a { color: var(--brand); }
 
-/* Navigation */
-nav h2 { margin: 0 0 8px 0; font-size: 1.1rem; }
-nav ul { list-style: none; padding: 0; margin: 0; }
-nav li { margin: 8px 0; }
-nav a {
-  display: block;
-  padding: 8px 10px;
-  background: #f2f6ff;
-  border: 1px solid #dfe8fb;
-  border-radius: 6px;
-}
-nav a[aria-current="page"] { font-weight: bold; }
+/* bold the current nav item */
+nav a[aria-current="page"] { font-weight: 600; }
 
-/* Main content (section + articles) */
-section h2 { margin-top: 0; }
-section article {
-  border: 1px solid #e3e7ee;
-  border-radius: 8px;
-  padding: 12px;
-  margin: 10px 0;
-  background: #fff;
-}
+/* keep article boxes clean on light background */
+section article { background: #fff; }
 
-/* Aside */
-aside {
-  background: #f9fbff;
-  border: 1px solid #e3e7ee;
-  border-radius: 8px;
-  padding: 12px;
-}
-
-/* Footer */
-footer {
-  margin-top: 8px;
-  padding: 12px 16px;
-  text-align: center;
-  background: #eef3fb;
-  border-top: 1px solid #c9d6f0;
-}
-
-/* Small screens: stack columns */
-@media (max-width: 800px) {
-  .layout { grid-template-columns: 1fr; }
-}
+/* optional: slightly tighter footer text */
+footer { font-size: 0.95rem; }
