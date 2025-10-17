@@ -1,16 +1,9 @@
 :root {
-  --brand: #0b3d91; /* your blue */
+  --brand: #0b3d91;
 }
 
-/* make the site title blue, and links use your brand color */
 header h1 { color: var(--brand); }
 a { color: var(--brand); }
-
-/* bold the current nav item */
 nav a[aria-current="page"] { font-weight: 600; }
-
-/* keep article boxes clean on light background */
 section article { background: #fff; }
-
-/* optional: slightly tighter footer text */
 footer { font-size: 0.95rem; }
