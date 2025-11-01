@@ -68,9 +68,9 @@
       </nav>
 
       <!-- FORM COLUMN -->
-      <section class="col-12 col-lg-5">
+      <section class="col-12 col-lg-6">
+       <h2 class="h5 mb-3">Product Management</h2>
         <div class="section-card p-3">
-          <h2 class="h5 mb-3">Product Management</h2>
           <p class="form-hint">Fields marked with <span class="text-danger">*</span> are required.</p>
 
           <form id="productForm" novalidate>
@@ -140,18 +140,18 @@
       </section>
 
       <!-- SEARCH / UPDATE COLUMN -->
-      <aside class="col-12 col-lg-4">
+      <aside class="col-12 col-lg-3">
+        <h2 class="h5">Search Product</h2>
         <div class="section-card p-3">
-          <h2 class="h6 mb-3">Search Product</h2>
           <div class="input-group mb-2">
-            <span class="input-group-text">Product ID</span>
+            <span class="input-group-text">ID:</span>
             <input id="searchId" type="text" class="form-control" placeholder="e.g., 1" />
             <button id="btnSearch" class="btn btn-outline-primary">Search</button>
           </div>
           <p class="form-hint mb-3">This is a front-end mock. The real AJAX NodeJS API will be built later.</p>
 
           <h3 class="h6">Product Details</h3>
-          <pre id="searchResult" class="json-box small">{/* Search results appear here */}</pre>
+          <pre id="searchResult" class="json-box small">{/*Search results here*/}</pre>
           <button id="btnUpdate" class="btn btn-success w-100">Update</button>
         </div>
       </aside>
