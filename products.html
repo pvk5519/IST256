@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Done by Pavlo Krykavskyi, Jaafar Almalky, Rakesh Yadav -->
+  <!-- Team 9 Storefront — Product Management Page -->
+  <!-- Contributors:
+       HTML: Pavlo Krykavskyi
+       CSS: Rakesh Kumar Yadav
+       Bootstrap: Jaafar Almalky
+       JS validation: Pavlo Krykavskyi
+       jQuery search/update: Team 9
+  -->
   <meta charset="UTF-8" />
-  <title>Shopper — Team 9 Storefront</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Create or update shopper details and see a JSON preview.">
+  <meta name="description" content="Web Storefront Product Management — create, preview, search, and update products as a JSON document (front-end mock)." />
+  <title>Product Management — Team 9 Storefront</title>
 
   <!-- Bootstrap 5.3.8 (jsDelivr CDN with SRI) -->
   <link
@@ -15,12 +22,18 @@
     crossorigin="anonymous"
   />
 
-  <!-- Shopper page cosmetics -->
+  <!-- jQuery (required for the small search/update demo) -->
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+
+  <!-- Shared site styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-light">
+<body class="bg-light" data-page="products">
 
-  <!-- HEADER (same style as other pages) -->
+  <!-- HEADER -->
   <header class="bg-white border-bottom">
     <div class="container">
       <table width="100%" class="w-100 py-2">
@@ -35,17 +48,18 @@
     </div>
   </header>
 
-  <!-- MAIN PAGE STRUCTURE -->
+  <!-- MAIN -->
   <div class="container my-4">
     <div class="row g-4"><!-- nav | section | aside -->
+
       <!-- NAVIGATION -->
       <nav class="col-12 col-lg-3">
         <h2 class="h5">Navigation</h2>
         <ul class="list-unstyled m-0">
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="index.html">Home</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="signup.html">Sign Up</a></li>
-          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none fw-semibold" aria-current="page" href="shopper.html">Shopper</a></li>
-          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="products.html">Products</a></li>
+          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="shopper.html">Shopper</a></li>
+          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none fw-semibold" aria-current="page" href="products.html">Products</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="login.html">Login</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="cart.html">Shopping Cart</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="about.html">About Us</a></li>
@@ -53,78 +67,93 @@
         </ul>
       </nav>
 
+      <!-- FORM COLUMN -->
+      <section class="col-12 col-lg-5">
+        <div class="section-card p-3">
+          <h2 class="h5 mb-3">Product Management</h2>
+          <p class="form-hint">Fields marked with <span class="text-danger">*</span> are required.</p>
 
-      <!-- SECTION (your shopper form + JSON preview) -->
-      <section class="col-12 col-lg-6">
-        <h2 class="h5">Shopper Management</h2>
-
-        <article class="border rounded p-3 bg-white">
-          <p class="text-muted small mb-4">Fields marked with * are required. Phone is optional.</p>
-
-          <!-- JavaScript validation + JSON rendering -->
-          <form id="shopperForm" novalidate>
-            <!-- Email (required) -->
+          <form id="productForm" novalidate>
+            <!-- Product Id (required) -->
             <div class="mb-3">
-              <label for="email" class="form-label">Shopper Email Address <span class="text-danger">*</span></label>
-              <input id="email" type="text" class="form-control" placeholder="hello@world.com" />
-              <div class="invalid-feedback">Enter a valid email (e.g., joe@test.com)</div>
+              <label for="productId" class="form-label">Product ID <span class="text-danger">*</span></label>
+              <input id="productId" type="text" class="form-control" placeholder="1" />
+              <div class="invalid-feedback">Product ID is required (digits or text allowed).</div>
             </div>
 
-            <!-- Name (required) -->
+            <!-- Product Description (required) -->
             <div class="mb-3">
-              <label for="name" class="form-label">Shopper Name <span class="text-danger">*</span></label>
-              <input id="name" type="text" class="form-control" placeholder="Hello World" />
-              <div class="invalid-feedback">Field required</div>
+              <label for="productDesc" class="form-label">Product Description <span class="text-danger">*</span></label>
+              <input id="productDesc" type="text" class="form-control" placeholder="clothing" />
+              <div class="invalid-feedback">Description is required.</div>
             </div>
 
-            <!-- Phone (optional) -->
+            <!-- Category (required) -->
             <div class="mb-3">
-              <label for="phone" class="form-label">Shopper Contact Phone Number <span class="text-muted">(optional)</span></label>
-              <input id="phone" type="text" class="form-control" placeholder="1127781234" />
-              <div class="invalid-feedback">Digits, spaces, (), +, - allowed</div>
+              <label for="productCategory" class="form-label">Product Category <span class="text-danger">*</span></label>
+              <select id="productCategory" class="form-select">
+                <option value="" selected disabled>Choose a category</option>
+                <option>Men's Clothing</option>
+                <option>Women's Clothing</option>
+                <option>Electronics</option>
+                <option>Home & Kitchen</option>
+                <option>Sports</option>
+              </select>
+              <div class="invalid-feedback">Select a category.</div>
             </div>
 
-            <!-- Age (required) -->
+            <!-- Unit of Measure (required) -->
             <div class="mb-3">
-              <label for="age" class="form-label">Shopper Age <span class="text-danger">*</span></label>
-              <input id="age" type="text" class="form-control" placeholder="45" />
-              <div class="invalid-feedback">Enter age 1–120</div>
+              <label for="productUOM" class="form-label">Product Unit of Measure <span class="text-danger">*</span></label>
+              <select id="productUOM" class="form-select">
+                <option value="" selected disabled>Choose a unit</option>
+                <option>Piece</option>
+                <option>Box</option>
+                <option>Set</option>
+                <option>Pack</option>
+              </select>
+              <div class="invalid-feedback">Select a unit of measure.</div>
             </div>
 
-            <!-- Address (required) -->
+            <!-- Price (required, money) -->
             <div class="mb-3">
-              <label for="address" class="form-label">Shopper Address <span class="text-danger">*</span></label>
-              <input id="address" type="text" class="form-control" placeholder="123 College Ave" />
-              <div class="invalid-feedback">Field required</div>
+              <label for="productPrice" class="form-label">Product Price <span class="text-danger">*</span></label>
+              <input id="productPrice" type="text" class="form-control" placeholder="49.99" />
+              <div class="invalid-feedback">Enter a valid price, e.g., 49.99</div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <!-- Weight (optional) -->
+            <div class="mb-3">
+              <label for="productWeight" class="form-label">Product Weight (optional)</label>
+              <input id="productWeight" type="text" class="form-control" placeholder="3" />
+              <div class="invalid-feedback">Enter a number (e.g., 3 or 3.5).</div>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-wide">Save</button>
           </form>
-        </article>
+        </div>
 
-        <!-- JSON block -->
-        <section class="mt-4">
-          <h3 class="h6">JSON Document</h3>
-          <pre id="jsonOutput" class="json-box small">{
-  /* JSON will appear here after submit */
-}</pre>
-        </section>
-
-        <!--
-          CONTRIBUTIONS:
-          - HTML structure: Pavlo Krykavskyi
-          - CSS styling: Yadav, Rakesh Kumar
-          - Bootstrap integration: Almalky, Jaafar
-          - JavaScript validation: Almalky, Jaafar
-          - JSON rendering logic: Yadav, Rakesh Kumar
-        -->
+        <div class="mt-3">
+          <h3 class="h6">JSON</h3>
+          <pre id="jsonOutput" class="json-box small">{/* JSON will appear here after Save */}</pre>
+        </div>
       </section>
 
-      <!-- ASIDE -->
-      <aside class="col-12 col-lg-3">
-        <h2 class="h5">Ads and Marketing</h2>
-        <div class="border rounded p-3 mb-2 bg-white">Sign up for exclusive deals.</div>
-        <div class="border rounded p-3 bg-white">Advertisement: Save big today!</div>
+      <!-- SEARCH / UPDATE COLUMN -->
+      <aside class="col-12 col-lg-4">
+        <div class="section-card p-3">
+          <h2 class="h6 mb-3">Search Product</h2>
+          <div class="input-group mb-2">
+            <span class="input-group-text">Product ID</span>
+            <input id="searchId" type="text" class="form-control" placeholder="e.g., 1" />
+            <button id="btnSearch" class="btn btn-outline-primary">Search</button>
+          </div>
+          <p class="form-hint mb-3">This is a front-end mock. The real AJAX NodeJS API will be built later.</p>
+
+          <h3 class="h6">Product Details</h3>
+          <pre id="searchResult" class="json-box small">{/* Search results appear here */}</pre>
+          <button id="btnUpdate" class="btn btn-success w-100">Update</button>
+        </div>
       </aside>
 
     </div>
@@ -138,10 +167,91 @@
         <a href="cookies.html">Cookie and Privacy Policy</a> |
         <a href="copyright.html">Copyright</a>
       </p>
-      <p class="mb-0">&copy; 2025 My Storefront</p>
+      <p class="mb-0">&copy; 2025 Team 9 Storefront</p>
     </div>
   </footer>
 
-  <script src="shopper.js" defer></script>
+  <script>
+    // ==== JavaScript behavior ====
+    // In-memory "database" to simulate search/update. Keyed by productId
+    const db = {};
+
+    // Validators
+    const isPrice  = v => /^\d+(?:\.\d{1,2})?$/.test(v.trim());
+    const isNumber = v => v.trim()==='' || /^\d+(?:\.\d+)?$/.test(v.trim());
+
+    function setInvalid(el, cond){ el.classList.toggle('is-invalid', cond); }
+
+    function buildJsonFromForm(){
+      return {
+        productId: document.querySelector('#productId').value.trim(),
+        productDesc: document.querySelector('#productDesc').value.trim(),
+        productCategory: document.querySelector('#productCategory').value,
+        productUOM: document.querySelector('#productUOM').value,
+        productPrice: parseFloat(document.querySelector('#productPrice').value.trim()),
+        productWeight: (document.querySelector('#productWeight').value.trim()==='' ? null : parseFloat(document.querySelector('#productWeight').value.trim()))
+      };
+    }
+
+    function pretty(obj){ return JSON.stringify(obj, null, 2); }
+
+    // Save / Create or Update
+    document.querySelector('#productForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const idEl    = document.querySelector('#productId');
+      const descEl  = document.querySelector('#productDesc');
+      const catEl   = document.querySelector('#productCategory');
+      const uomEl   = document.querySelector('#productUOM');
+      const priceEl = document.querySelector('#productPrice');
+      const weightEl= document.querySelector('#productWeight');
+
+      // Validate
+      let bad = false;
+      setInvalid(idEl,   idEl.value.trim()==='');          bad ||= idEl.classList.contains('is-invalid');
+      setInvalid(descEl, descEl.value.trim()==='');        bad ||= descEl.classList.contains('is-invalid');
+      setInvalid(catEl,  !catEl.value);                    bad ||= catEl.classList.contains('is-invalid');
+      setInvalid(uomEl,  !uomEl.value);                    bad ||= uomEl.classList.contains('is-invalid');
+      setInvalid(priceEl,!isPrice(priceEl.value));         bad ||= priceEl.classList.contains('is-invalid');
+      setInvalid(weightEl,!isNumber(weightEl.value));      bad ||= weightEl.classList.contains('is-invalid');
+
+      if(bad) return;
+
+      const doc = buildJsonFromForm();
+      db[doc.productId] = doc;                       // upsert in mock DB
+      document.querySelector('#jsonOutput').textContent = pretty(doc);
+    });
+
+    // jQuery helpers: Search & Update demo
+    $(function(){
+      $('#btnSearch').on('click', function(){
+        const id = $('#searchId').val().trim();
+        if(!id){ $('#searchResult').text('Please enter a Product ID to search.'); return; }
+        const found = db[id];
+        if(found){
+          $('#searchResult').text(pretty(found));
+          // Also populate form with found item (convenience)
+          $('#productId').val(found.productId);
+          $('#productDesc').val(found.productDesc);
+          $('#productCategory').val(found.productCategory);
+          $('#productUOM').val(found.productUOM);
+          $('#productPrice').val(found.productPrice);
+          $('#productWeight').val(found.productWeight ?? '');
+        } else {
+          $('#searchResult').text('No product found with ID ' + id + '.');
+        }
+      });
+
+      $('#btnUpdate').on('click', function(){
+        const doc = buildJsonFromForm();
+        if(!doc.productId){
+          $('#searchResult').text('Enter a Product ID on the left, then Update.');
+          return;
+        }
+        db[doc.productId] = doc; // upsert
+        $('#searchResult').text(pretty(doc));
+        $('#jsonOutput').text(pretty(doc)); // fixed typo (was prety)
+      });
+    });
+  </script>
 </body>
 </html>
