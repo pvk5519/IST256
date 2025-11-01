@@ -1,9 +1,39 @@
-:root {
-  --brand: #0b3d91;
-}
+/* =========================
+   Global site styles
+   ========================= */
+:root { --brand: #0b3d91; }
 
 header h1 { color: var(--brand); }
-a { color: var(--brand); }
+
+/* Make visited links the same brand color to avoid “lighter blue” */
+a, a:visited { color: var(--brand); }
+
 nav a[aria-current="page"] { font-weight: 600; }
-section article { background: #fff; }
-footer { font-size: 0.95rem; }
+
+.section-card { background:#fff; border:1px solid #e5e7eb; border-radius:.75rem; }
+.btn-wide { min-width: 160px; }
+.form-hint { font-size:.875rem; color:#6c757d; }
+
+/* Default (light) JSON box used across the site */
+.json-box {
+  background: #0f172a0d;          /* subtle slate tint */
+  border: 1px solid #e5e7eb;
+  border-radius: .5rem;
+  padding: 1rem;
+  color: inherit;
+}
+
+/* Show invalid placeholders in red to reinforce feedback */
+.is-invalid::placeholder { color: #dc3545; }
+
+/* =========================
+   Page-scoped overrides
+   (use data-page on <body>)
+   ========================= */
+
+/* Products page keeps the dark JSON preview */
+body[data-page="products"] .json-box {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+body[data-page="products"] .json-box code { color: #a7f3d0; }
