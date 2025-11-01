@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Team 9 Storefront — Product Management Page -->
-  <!-- Contributors:
-       HTML: Pavlo Krykavskyi
-       CSS: Rakesh Kumar Yadav
-       Bootstrap: Jaafar Almalky
-       JS validation: Pavlo Krykavskyi
-       jQuery search/update: Team 9
-  -->
+  <!-- Done by Pavlo Krykavskyi, Jaafar Almalky, Rakesh Yadav -->
   <meta charset="UTF-8" />
+  <title>Products — Team 9 Storefront</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Web Storefront Product Management — create, preview, search, and update products as a JSON document (front-end mock)." />
-  <title>Product Management — Team 9 Storefront</title>
+  <meta name="description" content="Create, preview, search, and update products as a JSON document (front-end mock)." />
 
   <!-- Bootstrap 5.3.8 (jsDelivr CDN with SRI) -->
   <link
@@ -22,18 +15,18 @@
     crossorigin="anonymous"
   />
 
-  <!-- jQuery (required for the small search/update demo) -->
+  <!-- jQuery (for search/update demo) -->
   <script
     src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"></script>
 
-  <!-- Shared site styles -->
+  <!-- Shared site styles (same as Shopper) -->
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-light" data-page="products">
+<body class="bg-light">
 
-  <!-- HEADER -->
+  <!-- HEADER (same style as other pages) -->
   <header class="bg-white border-bottom">
     <div class="container">
       <table width="100%" class="w-100 py-2">
@@ -48,7 +41,7 @@
     </div>
   </header>
 
-  <!-- MAIN -->
+  <!-- MAIN PAGE STRUCTURE -->
   <div class="container my-4">
     <div class="row g-4"><!-- nav | section | aside -->
 
@@ -59,19 +52,22 @@
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="index.html">Home</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="signup.html">Sign Up</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="shopper.html">Shopper</a></li>
-          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none fw-semibold" aria-current="page" href="products.html">Products</a></li>
+          <li class="mb-2">
+            <a class="d-block p-2 border rounded text-decoration-none fw-semibold" aria-current="page" href="products.html">Products</a>
+          </li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="cart.html">Shopping Cart</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="about.html">About Us</a></li>
-          <li><a class="d-block p-2 border rounded text-decoration-none" href="contact.html">Contact Us</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="login.html">Login</a></li>
+          <li><a class="d-block p-2 border rounded text-decoration-none" href="contact.html">Contact Us</a></li>
         </ul>
       </nav>
 
-      <!-- FORM COLUMN -->
+      <!-- SECTION (Product form + JSON preview) -->
       <section class="col-12 col-lg-6">
-       <h2 class="h5 mb-3">Product Management</h2>
-        <div class="section-card p-3">
-          <p class="form-hint">Fields marked with <span class="text-danger">*</span> are required.</p>
+        <h2 class="h5">Product Management</h2>
+
+        <article class="border rounded p-3 bg-white">
+          <p class="text-muted small mb-4">Fields marked with <span class="text-danger">*</span> are required.</p>
 
           <form id="productForm" novalidate>
             <!-- Product Id (required) -->
@@ -129,37 +125,38 @@
               <div class="invalid-feedback">Enter a number (e.g., 3 or 3.5).</div>
             </div>
 
-            <button type="submit" class="btn btn-success btn-wide">Save</button>
+            <button type="submit" class="btn btn-success">Save</button>
           </form>
-        </div>
+        </article>
 
-        <div class="mt-3">
+        <!-- JSON block (same visual as Shopper) -->
+        <section class="mt-4">
           <h3 class="h6">JSON</h3>
-          <pre id="jsonOutput" class="json-box small">{/* JSON will appear here after Save */}</pre>
-        </div>
+          <pre id="jsonOutput" class="json-box small">{
+  /* JSON will appear here after Save */
+}</pre>
+        </section>
+
+        <!--
+          CONTRIBUTIONS:
+          - HTML structure: Pavlo Krykavskyi
+          - CSS styling: Yadav, Rakesh Kumar
+          - Bootstrap integration: Almalky, Jaafar
+          - JavaScript validation & mock DB: Team 9
+        -->
       </section>
 
-      <!-- SEARCH / UPDATE COLUMN -->
+      <!-- ASIDE -->
       <aside class="col-12 col-lg-3">
-        <h2 class="h5">Search Product</h2>
-        <div class="section-card p-3">
-          <div class="input-group mb-2">
-            <span class="input-group-text">ID:</span>
-            <input id="searchId" type="text" class="form-control" placeholder="e.g., 1" />
-            <button id="btnSearch" class="btn btn-outline-primary">Search</button>
-          </div>
-          <p class="form-hint mb-3">This is a front-end mock. The real AJAX NodeJS API will be built later.</p>
-
-          <h3 class="h6">Product Details</h3>
-          <pre id="searchResult" class="json-box small">{/*Search results here*/}</pre>
-          <button id="btnUpdate" class="btn btn-success w-100">Update</button>
-        </div>
+        <h2 class="h5">Ads and Marketing</h2>
+        <div class="border rounded p-3 mb-2 bg-white">Sign up for exclusive deals.</div>
+        <div class="border rounded p-3 bg-white">Advertisement: Save big today!</div>
       </aside>
 
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (same as Shopper) -->
   <footer class="bg-white border-top">
     <div class="container text-center py-3">
       <p class="mb-1">
@@ -171,14 +168,14 @@
     </div>
   </footer>
 
+  <!-- Page script (retains your functionality) -->
   <script>
-    // ==== JavaScript behavior ====
     // In-memory "database" to simulate search/update. Keyed by productId
     const db = {};
 
     // Validators
-    const isPrice  = v => /^\d+(?:\.\d{1,2})?$/.test(v.trim());
-    const isNumber = v => v.trim()==='' || /^\d+(?:\.\d+)?$/.test(v.trim());
+    const isPrice  = v => /^\\d+(?:\\.\\d{1,2})?$/.test(v.trim());
+    const isNumber = v => v.trim()==='' || /^\\d+(?:\\.\\d+)?$/.test(v.trim());
 
     function setInvalid(el, cond){ el.classList.toggle('is-invalid', cond); }
 
@@ -249,7 +246,7 @@
         }
         db[doc.productId] = doc; // upsert
         $('#searchResult').text(pretty(doc));
-        $('#jsonOutput').text(pretty(doc)); // fixed typo (was prety)
+        $('#jsonOutput').text(pretty(doc));
       });
     });
   </script>
