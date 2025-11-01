@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Done by Pavlo Krykavskyi, Jaafar Almalky, Rakesh Yadav -->
+  <!-- Done by Pavlo Krykavskyi, Jaafar Almalky, Rakesh Yadav -->
   <meta charset="UTF-8" />
-  <title>Shopper — Team 9 Storefront</title>
+  <title>Shopping Cart — Team 9 Storefront</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Create or update shopper details and see a JSON preview.">
+  <meta name="description" content="Shopping cart to add, update, and remove products and preview the JSON payload.">
 
   <!-- Bootstrap 5.3.8 (jsDelivr CDN with SRI) -->
   <link
@@ -15,12 +15,18 @@
     crossorigin="anonymous"
   />
 
-  <!-- Shopper page cosmetics -->
+  <!-- jQuery (cloud CDN as required) -->
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+
+  <!-- Shared site styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-light">
 
-  <!-- HEADER (same style as other pages) -->
+<!-- HEADER (same style as other pages) -->
   <header class="bg-white border-bottom">
     <div class="container">
       <table width="100%" class="w-100 py-2">
@@ -35,78 +41,85 @@
     </div>
   </header>
 
+
   <!-- MAIN PAGE STRUCTURE -->
   <div class="container my-4">
     <div class="row g-4"><!-- nav | section | aside -->
+
       <!-- NAVIGATION -->
       <nav class="col-12 col-lg-3">
         <h2 class="h5">Navigation</h2>
         <ul class="list-unstyled m-0">
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="index.html">Home</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="signup.html">Sign Up</a></li>
-          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none fw-semibold" aria-current="page" href="shopper.html">Shopper</a></li>
+          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="shopper.html">Shopper</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="products.html">Products</a></li>
-          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="cart.html">Shopping Cart</a></li>
+          <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none fw-semibold" aria-current="page" href="cart.html">Shopping Cart</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="about.html">About Us</a></li>
           <li><a class="d-block p-2 border rounded text-decoration-none" href="contact.html">Contact Us</a></li>
           <li class="mb-2"><a class="d-block p-2 border rounded text-decoration-none" href="login.html">Login</a></li>
         </ul>
       </nav>
 
-
-      <!-- SECTION (your shopper form + JSON preview) -->
+      <!-- SECTION (cart UI + JSON preview) -->
       <section class="col-12 col-lg-6">
-        <h2 class="h5">Shopper Management</h2>
+        <h2 class="h5">Shopping Cart</h2>
 
         <article class="border rounded p-3 bg-white">
-          <p class="text-muted small mb-4">Fields marked with * are required. Phone is optional.</p>
-
-          <!-- JavaScript validation + JSON rendering -->
-          <form id="shopperForm" novalidate>
-            <!-- Email (required) -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Shopper Email Address <span class="text-danger">*</span></label>
-              <input id="email" type="text" class="form-control" placeholder="hello@world.com" />
-              <div class="invalid-feedback">Enter a valid email (e.g., joe@test.com)</div>
+          <!-- Add/search controls -->
+          <div class="row g-2 align-items-end mb-3">
+            <div class="col-12">
+              <label for="productPicker" class="form-label">Choose a product to add</label>
+              <select id="productPicker" class="form-select">
+                <!-- options populated by cart.js -->
+              </select>
             </div>
-
-            <!-- Name (required) -->
-            <div class="mb-3">
-              <label for="name" class="form-label">Shopper Name <span class="text-danger">*</span></label>
-              <input id="name" type="text" class="form-control" placeholder="Hello World" />
-              <div class="invalid-feedback">Field required</div>
+            <div class="col-6 col-md-4">
+              <label for="addQty" class="form-label">Quantity</label>
+              <input id="addQty" type="number" min="1" value="1" class="form-control" />
             </div>
-
-            <!-- Phone (optional) -->
-            <div class="mb-3">
-              <label for="phone" class="form-label">Shopper Contact Phone Number <span class="text-muted">(optional)</span></label>
-              <input id="phone" type="text" class="form-control" placeholder="1127781234" />
-              <div class="invalid-feedback">Digits, spaces, (), +, - allowed</div>
+            <div class="col-6 col-md-4 d-grid">
+              <label class="form-label invisible">Add</label>
+              <button id="btnAdd" class="btn btn-primary">Add</button>
             </div>
+          </div>
 
-            <!-- Age (required) -->
-            <div class="mb-3">
-              <label for="age" class="form-label">Shopper Age <span class="text-danger">*</span></label>
-              <input id="age" type="text" class="form-control" placeholder="45" />
-              <div class="invalid-feedback">Enter age 1–120</div>
-            </div>
+          <!-- Cart table -->
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Product ID</th>
+                  <th>Product Name</th>
+                  <th class="text-end">Price</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-end">Total</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="cartBody"><!-- rows populated by cart.js --></tbody>
+              <tfoot>
+                <tr>
+                  <th colspan="4" class="text-end">Cart Total:</th>
+                  <th id="cartGrandTotal" class="text-end">$0.00</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
 
-            <!-- Address (required) -->
-            <div class="mb-3">
-              <label for="address" class="form-label">Shopper Address <span class="text-danger">*</span></label>
-              <input id="address" type="text" class="form-control" placeholder="123 College Ave" />
-              <div class="invalid-feedback">Field required</div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-          </form>
+          <!-- Actions -->
+          <div class="d-flex gap-2">
+            <button id="btnCheckout" class="btn btn-success">Checkout</button>
+            <button id="btnClear" class="btn btn-outline-secondary">Clear Cart</button>
+          </div>
         </article>
 
         <!-- JSON block -->
         <section class="mt-4">
-          <h3 class="h6">JSON Document</h3>
+          <h3 class="h6">Shopping Cart JSON</h3>
           <pre id="jsonOutput" class="json-box small">{
-  /* JSON will appear here after submit */
+  /* Cart JSON will appear here */
 }</pre>
         </section>
 
@@ -115,16 +128,15 @@
           - HTML structure: Pavlo Krykavskyi
           - CSS styling: Yadav, Rakesh Kumar
           - Bootstrap integration: Almalky, Jaafar
-          - JavaScript validation: Almalky, Jaafar
-          - JSON rendering logic: Yadav, Rakesh Kumar
+          - jQuery behaviors + AJAX: Team effort
         -->
       </section>
 
       <!-- ASIDE -->
       <aside class="col-12 col-lg-3">
         <h2 class="h5">Ads and Marketing</h2>
-        <div class="border rounded p-3 mb-2 bg-white">Sign up for exclusive deals.</div>
-        <div class="border rounded p-3 bg-white">Advertisement: Save big today!</div>
+        <div class="border rounded p-3 mb-2 bg-white">Free shipping on orders over $49.</div>
+        <div class="border rounded p-3 bg-white">Deal of the day: Save big!</div>
       </aside>
 
     </div>
@@ -142,6 +154,7 @@
     </div>
   </footer>
 
-  <script src="shopper.js" defer></script>
+  <!-- Page behavior (implement the logic here like on Shopper) -->
+  <script src="cart.js" defer></script>
 </body>
 </html>
